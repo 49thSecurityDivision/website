@@ -1,0 +1,163 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body, main {
+  height: 100vh;
+}
+
+body {
+  font-family: 'Inconsolata';
+  font-size: 1rem;
+  background-color: #69f0ae;
+  color: #333;
+  margin: 0px;
+}
+
+.main {
+  //display: none;
+}
+
+.loader {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: #333;
+  color: #18FFFF;
+  z-index: 999;
+  line-height: 35px;
+  padding: 20px;
+}
+
+.topbar {
+  background-color: #B4F7D6;
+  display: block;
+  padding: 10px 10%;
+  text-align: right;
+  width: 100%;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.topbar * {
+  margin-left: 20px;
+}
+
+.topbar i.material-icons {
+  font-size: 18px;
+  font-weight: bold;
+  vertical-align: middle;
+  padding: 5px;
+  border-radius: 50%;
+  filter: invert(100%);
+  background-color: #A7A7A7;
+}
+
+.container {
+  display: block;
+  position: relative;
+  height: calc(100% - 88px);
+  margin: 20px 10%;
+}
+
+.terminal {
+  display: block;
+  background-color: #333;
+  border-radius: 5px;
+  border-right: 10px solid #585858;
+  border-bottom: 10px solid #585858;
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  padding: 20px;
+  overflow: auto;
+}
+
+.terminal .header {
+  display: block;
+  font-size: 1.25rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.terminal .header:before {
+  content: "/";
+}
+
+.terminal .header:after {
+  content: "/49thsecuritydivision";
+}
+
+.terminal .header .wd {
+  font-weight: bold;
+}
+
+.terminal .line {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.ps1:after {
+  color: #69F0AE;
+  content: "<49sd>";
+}
+
+.ps2:after {
+  color: #18FFFF;
+  content: "guest@49sd.com: #~";
+}
+
+input {
+  float: right;
+  width: calc(100% - 150px);
+  border: none;
+  background: transparent;
+  padding: 0px;
+  margin: 0px;
+  color: #fff;
+  font-family: 'Inconsolata';
+  line-height: 1rem;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+}
+
+pre {
+  margin: 1rem 0;
+  white-space: pre-wrap;
+  font-family: 'Inconsolata';
+}
+
+a {
+  color: #2196F3;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+/* -----------------------------------------------------------------------------
+HELPER CLASSES
+------------------------------------------------------------------------------*/
+
+.text-highlight {
+  color: #18FFFF;
+}
+
+@media screen and (max-width: 1006px) {
+  .topbar {
+    padding: 10px 2%;
+  }
+
+  .container {
+    margin: 20px 2%;
+  }
+
+  pre {
+    text-align: left !important;
+  }
+
+  .hide-for-small {
+    display: none;
+  }
+}
