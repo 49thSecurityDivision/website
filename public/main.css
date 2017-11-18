@@ -4,6 +4,7 @@
 
 html, body, main {
   height: 100vh;
+  position: relative;
 }
 
 body {
@@ -12,10 +13,6 @@ body {
   background-color: #69f0ae;
   color: #333;
   margin: 0px;
-}
-
-.main {
-  //display: none;
 }
 
 .loader {
@@ -53,24 +50,36 @@ body {
   background-color: #A7A7A7;
 }
 
-.container {
+.main {
   display: block;
-  position: relative;
+}
+
+.file,
+.terminal {
+  position: absolute;
+  display: block;
+  border-radius: 5px;
+  border-right: 10px solid #E0E0E0;
+  border-bottom: 10px solid #E0E0E0;
   height: calc(100% - 88px);
-  margin: 20px 10%;
+  padding: 20px;
+  overflow: auto;
+}
+
+.file {
+  background-color: #fff;
+  border-color: #E0E0E0;
+  height: calc(100% - 88px);
+  color: #333;
+  width: 50%;
 }
 
 .terminal {
-  display: block;
   background-color: #333;
-  border-radius: 5px;
-  border-right: 10px solid #585858;
-  border-bottom: 10px solid #585858;
-  height: 100%;
-  width: 100%;
+  border-color: #585858;
+  height: calc(100% - 88px);
   color: #fff;
-  padding: 20px;
-  overflow: auto;
+  width: 100%;
 }
 
 .terminal .header {

@@ -1,23 +1,19 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import Nav from 'components/Nav'
-import Terminal from 'components/Terminal'
+
+import JoinClubFile from 'containers/JoinClubFile'
+import MainTerminal from 'containers/MainTerminal'
 
 class Desktop extends Component {
     render() {
         return (
-            <Router>
-                <div class='main'>
-                    <Nav />
-                    <div class='container'>
-                        <Switch>
-                            <Route exact path='/' component={Terminal} />
-                        </Switch>
-                    </div>
-                </div>
-            </Router>
-        )
+            <div className='main'>
+                <Nav />
+                <MainTerminal isVisible />
+                <JoinClubFile isVisible />
+            </div>
+        )   
     }
 }
 

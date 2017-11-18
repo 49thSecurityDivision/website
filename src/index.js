@@ -1,6 +1,6 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { render } from 'react-dom'
 
 import Desktop from 'containers/Desktop'
 
-ReactDOM.render(<Desktop />, document.getElementById('root'))
+render(<Desktop />, document.getElementById('root'))
