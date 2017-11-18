@@ -5,7 +5,9 @@ class Terminal extends Component {
         return (
             <span>
                 { this.props.isVisible ?
-                    <div className='terminal'>{this.props.children}</div>
+                    <div className='terminal'>
+                        {this.props.children}
+                    </div>
                 : null }
             </span>
         )

@@ -6,6 +6,7 @@ import JoinClubFile from 'containers/JoinClubFile'
 import MainTerminal from 'containers/MainTerminal'
 
 class Desktop extends Component {
+
     render() {
         return (
             <div className='main'>
