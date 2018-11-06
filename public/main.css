@@ -69,24 +69,33 @@ body {
 .file {
   background-color: #fff;
   border-color: #E0E0E0;
-  height: calc(100% - 88px);
   color: #333;
   width: 50%;
+}
+
+.terminal,
+.terminal .header {
+  left: 10%;
 }
 
 .terminal {
   background-color: #333;
   border-color: #585858;
-  height: calc(100% - 88px);
   color: #fff;
-  width: 100%;
+  top: calc(48px + 20px);
+  padding-top: calc(1.25rem + 40px);
+  width: 80%;
 }
 
 .terminal .header {
   display: block;
+  position: fixed;
+  top: calc(48px + 20px);
+  padding: 20px 0;
+  background: #333;
   font-size: 1.25rem;
   text-align: center;
-  margin-bottom: 20px;
+  width: calc(80% - 10px);
 }
 
 .terminal .header:before {
@@ -160,6 +169,19 @@ HELPER CLASSES
 
   .container {
     margin: 20px 2%;
+  }
+
+  .terminal,
+  .terminal .header {
+      left: 2%;
+  }
+
+  .terminal {
+      width: 96%;
+  }
+
+  .terminal .header {
+      width: calc(96% - 10px);
   }
 
   pre {
