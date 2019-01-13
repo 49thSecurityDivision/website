@@ -9,6 +9,9 @@
 # production
 /build
 
+# keys
+src/lib/keys.json
+
 # misc
 .DS_Store
 .idea

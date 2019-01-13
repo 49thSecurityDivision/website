@@ -14,7 +14,6 @@ class Loader extends Component {
     componentDidMount() {
         this.state.lines.forEach((line, i) => {
             setTimeout(() => {
-                console.log(line)
                 this.setState({
                     renderedLines: [
                         ...this.state.renderedLines,

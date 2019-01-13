@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import { command_output, help_output, error_output } from 'output'
 
+import withGoogleCalendar from 'lib/withGoogleCalendar'
+
 import Terminal from 'components/Terminal'
 import PromptString from 'components/PromptString'
 
@@ -38,7 +40,8 @@ class MainTerminal extends Component {
                     output = command_output['leaders']
                     break
                 case 'calendar':
-                    output = command_output['calendar']
+                    // output = command_output['calendar']
+                    output = this.props.calendarOutput
                     break
                 case 'join':
                     output = command_output['join']
@@ -104,4 +107,4 @@ class MainTerminal extends Component {
     }
 }
 
-export default MainTerminal
+export default withGoogleCalendar(MainTerminal)
