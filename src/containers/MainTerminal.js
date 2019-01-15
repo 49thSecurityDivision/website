@@ -12,17 +12,56 @@ class MainTerminal extends Component {
         super(props)
         this.state = {
             numLines: 1,
+            history: [],
+            historySearchIndex: -1,
             lines: [{
                 id: 0,
                 isActive: true,
+                command: null,
                 output: null
             }],
             isLoading: true
         }
     }
 
-    handleCommand = (event) => {
-        if (event.which === 13) {
+    componentDidMount() {
+        this.refs.activeLine.focus()
+    }
+
+    handleTerminalClick = (event) => {
+        // this check ensures the user can still select output text within terminal without losing focus
+        if (event.target.tagName.toUpperCase() !== 'PRE') {
+            this.refs.activeLine.focus()
+        }
+    }
+
+    handleKeyDown = (event) => {
+        if (event.which === 38 || event.which === 40) { // history search
+            let { history, historySearchIndex } = this.state
+
+            switch (event.which) {
+                case 38: // up arrow
+                    if (historySearchIndex < history.length - 1) { historySearchIndex++ }
+                    break
+                case 40: // down arrow
+                    if (historySearchIndex >= 0) { historySearchIndex-- }
+                    break
+                default:
+            }
+
+            let value = ''
+            if (historySearchIndex >= 0) { value = history[historySearchIndex] }
+            this.refs.activeLine.value = value
+            this.setState({ historySearchIndex })
+        }
+    }
+
+    handleKeyPress = (event) => {
+        if (event.which === 13) { // enter key
+            // reset history search index
+            this.setState({ historySearchIndex: -1 })
+
+            // handle command input
             const { value, nextElementSibling } = event.target
             let output = ''
 
@@ -38,39 +77,45 @@ class MainTerminal extends Component {
                     break
                 case 'leaders':
                     output = command_output['leaders']
+                    nextElementSibling.style.whiteSpace = 'pre'
                     break
                 case 'calendar':
                     // output = command_output['calendar']
                     output = this.props.calendarOutput
+                    nextElementSibling.style.whiteSpace = 'pre'
                     break
                 case 'join':
                     output = command_output['join']
                     break
-                // new commands: whoami
                 case 'help':
                     help_output.forEach((command) => output += command.output + '\n')
                     break
                 default:
-                    output = value + error_output // TODO: substring to first word
+                    const firstValue = (value.indexOf(' ') < 0 ? value : value.substring(0, value.indexOf(' ')))
+                    output = firstValue + error_output
             }
 
+            const history = this.state.history
+            history.unshift(value)
+
             let lines = []
-            let nextIndex = this.state.numLines            
+            let nextIndex = this.state.numLines
 
             if (value !== 'clear') {
                 lines = this.state.lines
-                lines[lines.length - 1].isActive = false
+                lines[lines.length - 1].command = value
                 lines[lines.length - 1].output = output
             }
 
             lines.push({ id: nextIndex, isActive: true, output: null })
-            this.setState({ numLines: nextIndex + 1, lines: lines })
+
+            this.setState({ numLines: nextIndex + 1, history, lines })
         }
     }
 
     render() {
         return (
-            <Terminal isVisible={this.props.isVisible}>
+            <Terminal isVisible={this.props.isVisible} onClick={this.handleTerminalClick}>
                 <div className='header'>
                     <span className='wd'>home</span>
                 </div>
@@ -86,16 +131,18 @@ class MainTerminal extends Component {
                 <div className='line'>&nbsp;</div>
 
                 {
-                    this.state.lines.map((line, i) => {
+                    this.state.lines.map((line) => {
                         return (
-                            <div key={line.id} className='line'>
+                            <div key={'line-' + line.id} className='line'>
                                 <PromptString number={2} />
                                 <input
                                     type='text'
                                     autoFocus
                                     autoCapitalize='none'
-                                    onKeyPress={this.handleCommand}
+                                    onKeyDown={this.handleKeyDown}
+                                    onKeyPress={this.handleKeyPress}
                                     disabled={!line.isActive}
+                                    ref={line.isActive ? 'activeLine' : null}
                                 />
                                 <pre dangerouslySetInnerHTML={{ __html: line.output }}></pre>
                             </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import qs from'query-string'
 import moment from 'moment'
 
 import keys from 'lib/keys.json'
@@ -11,7 +12,15 @@ const withGoogleCalendar = (Component) => class extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(encodeURI('https://www.googleapis.com/calendar/v3/calendars/' + keys.calendarId + '/events?maxResults=10&key=' + keys.apiKey))
+        const params = {
+            timeMin: moment().toISOString(),
+            singleEvents: true,
+            showDeleted: false,
+            maxResults: 10,
+            key: keys.apiKey
+        }
+
+        axios.get('https://www.googleapis.com/calendar/v3/calendars/' + keys.calendarId + '/events?' + qs.stringify(params))
             .then((response) => {
                 let calendarOutput = ''
 
@@ -24,8 +33,8 @@ const withGoogleCalendar = (Component) => class extends React.Component {
                         const cells = [
                             { numCharacters: 4,  value: i },
                             { numCharacters: 32, value: item.summary },
-                            { numCharacters: 18, value: moment(item.start.dateTime ? item.start.dateTime : item.start.date).format("MM/DD/YYYY") },
-                            { numCharacters: 13, value: (item.start.dateTime ? moment(item.start.dateTime).format("HH:mm") : 'all day') },
+                            { numCharacters: 18, value: (item.start ? moment(item.start.dateTime ? item.start.dateTime : item.start.date).format("MM/DD/YYYY") : '') },
+                            { numCharacters: 13, value: (item.start ? (item.start.dateTime ? moment(item.start.dateTime).format("HH:mm") : 'all day') : '') },
                             { numCharacters: 17, value: (item.location ? item.location.substring(0, item.location.indexOf(',')) : '') }
                         ]
 
