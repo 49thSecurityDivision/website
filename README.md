@@ -21,6 +21,6 @@ Now you can install the necessary dependencies and run the application.
 
 Once you are ready to move to production, you will first need to run a new build which will output to the `build` folder.
 
-    npm build
+    npm run build
 
 Finally, deploy the build to the production server.
